@@ -1,0 +1,12 @@
+---
+cassandra3x_java_mgmnt_path: /usr/lib/jvm/jre-openjdk/lib/management
+cassandra3x_jmxremote_access: "{{ cassandra3x_java_mgmnt_path }}/jmxremote.access"
+cassandra3x_root_default_file_mode: "u=rw,g=r,o=r"
+cassandra3x_jmxremote_authenticate_replace_configuration: "^    JVM_OPTS=\"$JVM_OPTS -Dcom.sun.management.jmxremote.authenticate\""
+cassandra3x_jmxremote_authenticate_configuration: "  JVM_OPTS=\"$JVM_OPTS -Dcom.sun.management.jmxremote.authenticate=true\""
+cassandra3x_jmxremote_password: /etc/cassandra/jmxremote.password
+cassandra3x_jmxremote_password_replace_configuration: "^#  JVM_OPTS=\"$JVM_OPTS -Dcom.sun.management.jmxremote.password.file=/etc/cassandra/jmxremote.password\""
+cassandra3x_jmxremote_password_configuration: "  JVM_OPTS=\"$JVM_OPTS -Dcom.sun.management.jmxremote.password.file=/etc/cassandra/jmxremote.password\""
+cassandra3x_cassandra_sec_file_mode: "u=r,g=,o="
+cassandra3x_linux_user: cassandra
+cassandra3x_linux_group: cassandra

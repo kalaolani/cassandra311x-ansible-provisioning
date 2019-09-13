@@ -1,0 +1,15 @@
+---
+# varaiables for operate_configure_cassandra.yml
+cassandra3x_authenticator_replace_configuration: "^authenticator:"
+#cassandra3x_authenticator_configuration: "authenticator: AllowAllAuthenticator"
+cassandra3x_authenticator_configuration: "authenticator: PasswordAuthenticator"
+cassandra3x_linux_user: cassandra
+cassandra3x_linux_group: cassandra
+cassandra3x_authorizer_replace_configuration: "^authorizer:"
+#cassandra3x_authorizer_configuration: "authorizer: AllowAllAuthorizer"
+cassandra3x_authorizer_configuration: "authorizer: CassandraAuthorizer"
+
+cassandra3x_system_auth_mod: true
+cassandra3x_system_distributed_mod: true
+cassandra3x_system_traces_mod: true
+cassandra3x_configure_default_cql_users: true

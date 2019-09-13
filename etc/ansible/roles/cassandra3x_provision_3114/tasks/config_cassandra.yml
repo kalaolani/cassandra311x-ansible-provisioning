@@ -1,0 +1,116 @@
+---
+- name: remove cassandra.yaml
+  file:
+    path: "{{ cassandra3x_yaml }}"
+    state: absent
+
+- name: install cassandra.yaml
+  template:
+    src: cassandra.yaml
+    dest: "{{ cassandra3x_yaml }}"
+
+- name: configure cassandra.yaml with cluster_name
+  lineinfile:
+    dest: "{{ cassandra3x_yaml }}"
+    regexp: '^cluster_name:'
+    line: "cluster_name: '{{ cassandra3x_cluster_name }}'"
+    state: present
+
+- name: configure cassandra.yaml with num_tokens
+  lineinfile:
+    dest: "{{ cassandra3x_yaml }}"
+    regexp: '^num_tokens:'
+    line: "num_tokens: {{ cassandra3x_num_tokens }}"
+    state: present
+
+- name: configure cassandra.yaml with seeds
+  lineinfile:
+    dest: "{{ cassandra3x_yaml }}"
+    regexp: '^          - seeds: "127.0.0.1"'
+    line: "          - seeds: \"{{ cassandra3x_cluster_seeds }}\""
+    state: present
+
+- name: configure cassandra.yaml with listen_address
+  lineinfile:
+    path: "{{ cassandra3x_yaml }}"
+    regexp: '^listen_address:'
+    line: "listen_address: {{ inventory_hostname }}"
+    state: present    
+
+- name: configure cassandra.yaml with rpc_address
+  lineinfile:
+    path: "{{ cassandra3x_yaml }}"
+    regexp: '^rpc_address:'
+    line: "rpc_address: {{ inventory_hostname }}"
+    state: present
+
+- name: configure Cassandra to use trickle_fsync true 
+  lineinfile:
+    path: "{{ cassandra3x_yaml }}"
+    regexp: '^trickle_fsync:'
+    line: "trickle_fsync: {{ cassandra3x_trickle_fsync }}"
+    state: present
+
+- name: configure cassandra.yaml with endpoint_snitch
+  lineinfile:
+    path: "{{ cassandra3x_yaml }}"
+    regexp: '^endpoint_snitch:'
+    line: "endpoint_snitch: {{ cassandra3x_endpoint_snitch }}"
+    state: present
+
+- name: remove cassandra-rackdc.properties
+  file:
+    path: "{{ cassandra3x_rackdc_properties }}"
+    state: absent
+
+- name: install cassandra-rackdc.properties
+  template:
+    src: cassandra-rackdc.properties
+    dest: "{{ cassandra3x_rackdc_properties }}"
+
+- name: update cassandra DC config
+  lineinfile:
+    path: "{{ cassandra3x_rackdc_properties }}"
+    regexp: '^dc='
+    line: "dc={{cassandra3x_cluster_dc}}"
+    state: present
+
+- name: update cassandra rack config
+  lineinfile:
+    path: "{{ cassandra3x_rackdc_properties }}"
+    regexp: '^rack='
+    line: "rack={{cassandra3x_cluster_dc_rack}}"
+    state: present
+
+- name: remove cassandra-env.sh
+  file:
+    path: "{{ cassandra3x_env }}"
+    state: absent
+
+- name: install cassandra-env.sh
+  template:
+    src: cassandra-env.sh
+    dest: "{{ cassandra3x_env }}"
+    owner: cassandra
+    group: cassandra    
+    mode: "{{ cassandra3x_cassandra_conf_file_mode }}"
+
+- name: configure cassandra-env.sh with MAX_HEAP_SIZE for g1gc
+  lineinfile:
+    path: "{{ cassandra3x_env }}"
+    state: present
+    regexp: '^MAX_HEAP_SIZE='
+    line: 'MAX_HEAP_SIZE="{{cassandra3x_g1gc_MAX_HEAP_SIZE}}"'
+
+- name: remove jvm.options
+  file:
+    path: "{{ cassandra3x_jvm_options }}"
+    state: absent
+
+- name: install jvm.options
+  template:
+    src: jvm.options
+    dest: "{{ cassandra3x_jvm_options }}"
+    owner: cassandra
+    group: cassandra    
+    mode: "{{ cassandra3x_cassandra_conf_file_mode }}"

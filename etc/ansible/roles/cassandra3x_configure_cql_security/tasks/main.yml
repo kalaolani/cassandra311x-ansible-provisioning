@@ -1,0 +1,4 @@
+---
+- import_tasks: configure_system_keyspaces.yml
+- import_tasks: install_authenticator.yml
+- import_tasks: install_authorizer.yml

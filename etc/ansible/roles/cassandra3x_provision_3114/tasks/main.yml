@@ -1,0 +1,6 @@
+---
+- import_tasks: remove_swap.yml
+- import_tasks: create_cassandra_group_user.yml
+- import_tasks: install_cassandra_repo.yml
+- import_tasks: install_packages.yml
+- import_tasks: config_cassandra.yml

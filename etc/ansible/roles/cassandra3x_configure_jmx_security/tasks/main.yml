@@ -1,0 +1,4 @@
+---
+- import_tasks: install_jmxremote_access.yml
+- import_tasks: install_jmxremote_password.yml
+- import_tasks: config_cassandra_env.yml

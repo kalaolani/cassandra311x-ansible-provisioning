@@ -1,0 +1,8 @@
+---
+- name: start cassandra service nodetool status
+  command: "nodetool -u {{ cassandra3x_remote_jmx_user }} -pw {{ cassandra3x_remote_jmx_pass}} status"
+  register: statushandoff
+  until: statushandoff.stdout.find("UJ") != 1 and statushandoff.stdout.find("UN") != -1
+  retries: 10
+  delay: 6
+  ignore_errors: yes

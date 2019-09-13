@@ -1,0 +1,31 @@
+---
+- name: alter system_auth keyspace
+  command: "/usr/bin/cqlsh {{ inventory_hostname }} -u {{ cassandra3x_ansible_superuser }} -p {{ cassandra3x_ansible_superuser_password }} -e \"ALTER KEYSPACE system_auth WITH replication = { {{ cassandra3x_system_ks_configuration }} }  AND durable_writes = true;\" "
+  run_once: true
+  when: inventory_hostname == ansible_play_hosts[0] and
+        cassandra3x_system_auth_mod == true
+  delegate_to: localhost
+  register: command_result
+  ignore_errors: yes
+  failed_when: command_result.rc != 0
+  notify: system_auth keyspace altered
+
+- name: alter system_distributed keyspace
+  command: "/usr/bin/cqlsh {{ inventory_hostname }} -u {{ cassandra3x_ansible_superuser }} -p {{ cassandra3x_ansible_superuser_password }} -e \"ALTER KEYSPACE system_distributed WITH replication = { {{ cassandra3x_system_ks_configuration }} }  AND durable_writes = true;\" "
+  run_once: true
+  when: inventory_hostname == ansible_play_hosts[0] and
+        cassandra3x_system_distributed_mod == true
+  delegate_to: localhost
+  register: command_result
+  failed_when: command_result.rc != 0
+  notify: system_distributed keyspace altered  
+
+- name: alter system_traces keyspace
+  command: "/usr/bin/cqlsh {{ inventory_hostname }} -u {{ cassandra3x_ansible_superuser }} -p {{ cassandra3x_ansible_superuser_password }} -e \"ALTER KEYSPACE system_traces WITH replication = { {{ cassandra3x_system_ks_configuration }} }  AND durable_writes = true;\" "
+  run_once: true
+  when: inventory_hostname == ansible_play_hosts[0] and
+        cassandra3x_system_traces_mod == true
+  delegate_to: localhost
+  register: command_result
+  failed_when: command_result.rc != 0
+  notify: system_traces keyspace altered  

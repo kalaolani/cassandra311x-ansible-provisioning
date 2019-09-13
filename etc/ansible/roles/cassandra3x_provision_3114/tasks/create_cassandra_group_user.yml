@@ -1,0 +1,11 @@
+---
+- name: "create the cassandra group gid=9000"
+  group:
+   name: cassandra
+   gid: 9000
+   
+- name: "create the cassandra user uid=9000"
+  user:
+   name: cassandra
+   uid: 9000
+

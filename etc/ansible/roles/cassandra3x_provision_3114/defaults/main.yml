@@ -1,0 +1,6 @@
+---
+cassandra3x_num_tokens: 8
+cassandra3x_trickle_fsync: true
+cassandra3x_endpoint_snitch: GossipingPropertyFileSnitch
+cassandra3x_g1gc_MAX_HEAP_SIZE: 2G
+cassandra3x_jvm_options: "{{ cassandra3x_conf_path }}/jvm.options"

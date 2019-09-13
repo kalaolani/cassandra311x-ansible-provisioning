@@ -1,0 +1,6 @@
+---
+cassandra3x_cluster_dc: dc2
+
+# cassandra3x_reboot_safe: true
+# cassandra3x_cassandra_enable_safe: false
+# cassandra3x_cassandra_restart_safe: false

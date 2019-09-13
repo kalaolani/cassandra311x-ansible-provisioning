@@ -1,0 +1,7 @@
+---
+# ansible-playbook /etc/ansible/playbooks/cassandra22x/role_provisioning_cassandra3x_alter_system_keyspaces.yml --extra-vars "target=ansible_inventory_hosts"
+- hosts: "{{ target | default('FAIL') }}"
+  gather_facts: true
+  any_errors_fatal: true
+  roles:
+    - cassandra3x_alter_system_keyspaces

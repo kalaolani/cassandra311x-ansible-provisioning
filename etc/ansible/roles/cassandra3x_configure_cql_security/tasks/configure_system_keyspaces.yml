@@ -1,0 +1,39 @@
+---
+- name: alter system_auth keyspace
+  command: "/usr/bin/cqlsh {{ inventory_hostname }} -e \"ALTER KEYSPACE system_auth WITH replication = { {{ cassandra3x_system_ks_configuration }} }  AND durable_writes = true;\" "
+  run_once: true
+  when: inventory_hostname == ansible_play_hosts[0] and
+        cassandra3x_system_auth_mod == true
+  delegate_to: localhost
+  register: command_result
+  until: command_result.rc == 0
+  retries: 60
+  delay: 1
+  ignore_errors: yes
+  failed_when: command_result.rc != 0 and 'Remote end requires authentication' not in command_result.stderr
+
+- name: alter system_distributed keyspace
+  command: "/usr/bin/cqlsh {{ inventory_hostname }} -e \"ALTER KEYSPACE system_distributed WITH replication = { {{ cassandra3x_system_ks_configuration }} }  AND durable_writes = true;\" "
+  run_once: true
+  when: inventory_hostname == ansible_play_hosts[0] and
+        cassandra3x_system_distributed_mod == true
+  delegate_to: localhost
+  register: command_result
+  until: command_result.rc == 0
+  retries: 60
+  delay: 1
+  ignore_errors: yes
+  failed_when: command_result.rc != 0 and 'Remote end requires authentication' not in command_result.stderr
+
+- name: alter system_traces keyspace
+  command: "/usr/bin/cqlsh {{ inventory_hostname }} -e \"ALTER KEYSPACE system_traces WITH replication = { {{ cassandra3x_system_ks_configuration }} }  AND durable_writes = true;\" "
+  run_once: true
+  when: inventory_hostname == ansible_play_hosts[0] and
+        cassandra3x_system_traces_mod == true
+  delegate_to: localhost
+  register: command_result
+  until: command_result.rc == 0
+  retries: 60
+  delay: 1
+  ignore_errors: yes
+  failed_when: command_result.rc != 0 and 'Remote end requires authentication' not in command_result.stderr

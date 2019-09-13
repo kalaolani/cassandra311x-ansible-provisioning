@@ -1,0 +1,34 @@
+---
+- name: reboot box
+  shell: sleep 2 && /sbin/shutdown -r now "Ansible system package upgraded"
+  async: 1
+  poll: 0
+  ignore_errors: true
+
+- name: Wait for server to restart
+  local_action:
+    module: wait_for
+      host={{ inventory_hostname }}
+      port=22
+      delay=1
+      timeout=300
+
+- name: remove system keyspace template for a new node
+  file: 
+    path: "{{ cassandra3x_data_path }}/system/"
+    state: absent
+
+- name: remove system_distributed keyspace template for a new node
+  file: 
+    path: "{{ cassandra3x_data_path }}/system_distributed/"
+    state: absent
+
+- name: remove system_traces keyspace template for a new node
+  file: 
+    path: "{{ cassandra3x_data_path }}/system_traces/"
+    state: absent
+
+- name: remove system_auth keyspace template for a new node
+  file: 
+    path: "{{ cassandra3x_data_path }}/system_auth/"
+    state: absent

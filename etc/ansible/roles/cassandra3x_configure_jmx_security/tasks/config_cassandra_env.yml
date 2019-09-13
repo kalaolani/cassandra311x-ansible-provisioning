@@ -1,0 +1,34 @@
+---
+- name: configure cassandra-env with jmxremote authenticate
+  lineinfile:
+    path: "{{ cassandra3x_env }}"
+    state: present
+    regexp: "{{ cassandra3x_jmxremote_authenticate_replace_configuration }}"
+    line: "{{ cassandra3x_jmxremote_authenticate_configuration }}"
+  notify: 
+    - nodetool drain restart cassandra
+    - nodetool stopdaemon restart cassandra    
+    - stop cassandra service restart cassandra
+    - start cassandra service  restart cassandra
+    - nodetool statusbinary restart cassandra
+    - nodetool statusgossip restart cassandra
+    - nodetool statushandoff restart cassandra
+
+- name: configure cassandra-env.sh with jmxremote password
+  lineinfile:
+    path: "{{ cassandra3x_env }}"
+    state: present
+    regexp: "{{ cassandra3x_jmxremote_password_replace_configuration }}"
+    line: "{{ cassandra3x_jmxremote_password_configuration }}"
+  register: command_result
+  notify: 
+    - nodetool drain restart cassandra
+    - nodetool stopdaemon restart cassandra    
+    - stop cassandra service restart cassandra
+    - start cassandra service  restart cassandra
+    - nodetool statusbinary restart cassandra
+    - nodetool statusgossip restart cassandra
+    - nodetool statushandoff restart cassandra
+
+- name: force all notified handlers to run at this point, not waiting for normal sync points
+  meta: flush_handlers

@@ -1,0 +1,31 @@
+---
+- name: remove packages
+  yum:
+    name: "{{ packages }}"
+    state: absent 
+    update_cache: true
+  vars:
+    packages:
+    - jemalloc
+    - java-1.8.0-openjdk
+    - jna
+    - cassandra-3.11.4-1.noarch
+    - cassandra-tools-3.11.4-1.noarch
+    - python36
+    - python36-pip
+    - python36-setuptools
+
+- name: remove /var/lib/cassandra
+  file:
+    path: /var/lib/cassandra
+    state: absent
+
+- name: remove /etc/cassandra
+  file:
+    path: /etc/cassandra
+    state: absent
+
+- name: remove /var/log/cassandra
+  file:
+    path: /var/log/cassandra
+    state: absent    

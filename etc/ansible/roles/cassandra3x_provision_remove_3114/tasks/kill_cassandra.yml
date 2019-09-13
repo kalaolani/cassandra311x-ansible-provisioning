@@ -1,0 +1,23 @@
+---
+- name: stop cassandra
+  systemd:
+    state: stopped
+    name: cassandra
+
+- name: get cassandra pid if running
+  shell: "ps -ef | grep -v grep | grep -w cassandra | awk '{print $2}'"
+  register: running_cassandra
+
+- name: kill running cassandra
+  shell: "kill {{ item }}"
+  with_items: "{{ running_cassandra.stdout_lines }}"
+  when: running_cassandra != ""
+
+- name: Waiting until running cassandra process is killed
+  wait_for:
+    path: "/proc/{{ item }}/status"
+    state: absent
+  with_items: "{{ running_cassandra.stdout_lines }}"
+
+- name: disable cassandra
+  command: /sbin/chkconfig cassandra off

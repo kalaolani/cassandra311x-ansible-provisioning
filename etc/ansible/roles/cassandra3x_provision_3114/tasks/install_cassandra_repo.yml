@@ -1,0 +1,8 @@
+---
+- name: install cassandra repo
+  template:
+    src: cassandra.repo
+    dest: /etc/yum.repos.d/cassandra.repo
+
+- name: yum clean all
+  command: yum clean all

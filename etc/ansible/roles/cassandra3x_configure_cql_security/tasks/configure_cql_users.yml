@@ -1,0 +1,65 @@
+---
+- name: create monitor cql user
+  command: "/usr/bin/cqlsh {{ inventory_hostname }} -u {{ cassandra3x_default_superuser }} -p {{ cassandra3x_default_superuser_password }} -e \"CREATE USER monitor WITH PASSWORD 'monitor';\" "
+  run_once: true
+  when: inventory_hostname == ansible_play_hosts[0] and
+        cassandra3x_configure_default_cql_users == true
+  delegate_to: localhost
+  register: command_result
+  until: command_result.rc == 0
+  retries: 60
+  delay: 1
+  ignore_errors: yes  
+  failed_when: command_result.rc != 0 and 'already exists' not in command_result.stderr
+
+- name: create ansible cql superuser
+  command: "/usr/bin/cqlsh {{ inventory_hostname }} -u {{ cassandra3x_default_superuser }} -p {{ cassandra3x_default_superuser_password }} -e \"CREATE USER ansible WITH PASSWORD 'ansible' SUPERUSER;\" "
+  run_once: true
+  when: inventory_hostname == ansible_play_hosts[0] and
+        cassandra3x_configure_default_cql_users == true
+  delegate_to: localhost
+  register: command_result
+  until: command_result.rc == 0
+  retries: 60
+  delay: 1
+  ignore_errors: yes  
+  failed_when: command_result.rc != 0 and 'already exists' not in command_result.stderr
+
+- name: create ops cql superuser
+  command: "/usr/bin/cqlsh {{ inventory_hostname }} -u {{ cassandra3x_default_superuser }} -p {{ cassandra3x_default_superuser_password }} -e \"CREATE USER ops WITH PASSWORD 'ops' SUPERUSER;\" "
+  run_once: true
+  when: inventory_hostname == ansible_play_hosts[0] and
+        cassandra3x_configure_default_cql_users == true
+  delegate_to: localhost
+  register: command_result
+  until: command_result.rc == 0
+  retries: 60
+  delay: 1
+  ignore_errors: yes  
+  failed_when: command_result.rc != 0 and 'already exists' not in command_result.stderr
+
+- name: create devops cql superuser
+  command: "/usr/bin/cqlsh {{ inventory_hostname }} -u {{ cassandra3x_default_superuser }} -p {{ cassandra3x_default_superuser_password }} -e \"CREATE USER devops WITH PASSWORD 'devops' SUPERUSER;\" "
+  run_once: true
+  when: inventory_hostname == ansible_play_hosts[0] and
+        cassandra3x_configure_default_cql_users == true
+  delegate_to: localhost
+  register: command_result
+  until: command_result.rc == 0
+  retries: 60
+  delay: 1
+  ignore_errors: yes  
+  failed_when: command_result.rc != 0 and 'already exists' not in command_result.stderr
+
+- name: create dev cql user
+  command: "/usr/bin/cqlsh {{ inventory_hostname }} -u {{ cassandra3x_default_superuser }} -p {{ cassandra3x_default_superuser_password }} -e \"CREATE USER dev WITH PASSWORD 'dev';\" "
+  run_once: true
+  when: inventory_hostname == ansible_play_hosts[0] and
+        cassandra3x_configure_default_cql_users == true
+  delegate_to: localhost
+  register: command_result
+  until: command_result.rc == 0
+  retries: 60
+  delay: 1
+  ignore_errors: yes  
+  failed_when: command_result.rc != 0 and 'already exists' not in command_result.stderr

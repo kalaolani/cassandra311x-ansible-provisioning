@@ -1,0 +1,12 @@
+---
+- name: system_auth keyspace altered
+  debug:
+    msg: "run repairs on then system_auth keyspace"
+
+- name: system_distributed keyspace altered
+  debug:
+    msg: "run repairs on then system_distributed keyspace"
+    
+- name: system_traces keyspace altered
+  debug:
+    msg: "run repairs on then system_traces keyspace"

@@ -1,0 +1,21 @@
+---
+cassandra3x_cluster_name: clusterx
+cassandra3x_cluster_seeds: cassx.deltakappa.com
+cassandra3x_var_path: /var/lib/cassandra
+cassandra3x_data_path: "{{ cassandra3x_var_path }}/data"
+cassandra3x_conf_path: /etc/cassandra/conf
+cassandra3x_yaml: "{{ cassandra3x_conf_path }}/cassandra.yaml"
+cassandra3x_cassandra_conf_file_mode: "u=rx,g=rx,o=rwx"
+cassandra3x_system_ks_configuration: "'class': 'NetworkTopologyStrategy', 'dc1': '1'"
+cassandra3x_rackdc_properties: "{{ cassandra3x_conf_path }}/cassandra-rackdc.properties"
+cassandra3x_env: "{{ cassandra3x_conf_path }}/cassandra-env.sh"  
+
+cassandra3x_default_superuser: cassandra
+cassandra3x_default_superuser_password: cassandra
+cassandra3x_remote_jmx_user: ansible
+cassandra3x_remote_jmx_pass: ansible
+cassandra3x_ansible_superuser: ansible
+cassandra3x_ansible_superuser_password: ansible
+
+cassandra3x_cassandra_enable_safe: true
+cassandra3x_cassandra_restart_safe: true

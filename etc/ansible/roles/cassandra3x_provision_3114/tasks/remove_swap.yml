@@ -1,0 +1,16 @@
+---
+- name: execute swapoff --all command on the node (ignore errors)
+  command: swapoff --all
+  ignore_errors: yes
+
+- name: remove current swaps from fstab (mark system for reboot if changed)
+  lineinfile:
+    dest: /etc/fstab
+    regexp: '.*swap.*\n?'
+    state: absent
+  notify: 
+    - reboot box
+    - Wait for server to restart
+
+- name: force all notified handlers to run at this point, not waiting for normal sync points
+  meta: flush_handlers

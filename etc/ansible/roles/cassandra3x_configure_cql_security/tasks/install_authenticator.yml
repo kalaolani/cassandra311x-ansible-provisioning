@@ -1,0 +1,19 @@
+---
+- name: install authenticator configuration
+  lineinfile:
+    path: "{{ cassandra3x_yaml }}"
+    owner: "{{ cassandra3x_linux_user }}"
+    group: "{{ cassandra3x_linux_group }}"
+    mode: "{{ cassandra3x_cassandra_conf_file_mode }}"
+    regexp: "{{ cassandra3x_authenticator_replace_configuration }}"
+    line: "{{ cassandra3x_authenticator_configuration }}"
+    state: present
+  notify: 
+    - nodetool drain restart cassandra
+    - nodetool stopdaemon restart cassandra    
+    - stop cassandra service restart cassandra
+    - start cassandra service  restart cassandra
+    - nodetool statusbinary restart cassandra
+    - nodetool statusgossip restart cassandra
+    - nodetool statushandoff restart cassandra
+    - create default cql users

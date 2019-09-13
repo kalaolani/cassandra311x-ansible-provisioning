@@ -1,0 +1,51 @@
+---
+- name: install packages
+  yum:
+    name: "{{ packages }}"
+    state: latest 
+  vars:
+    packages:
+    - vim-enhanced
+    - libxml2
+    - ntp
+    - screen
+    - ncompress
+    - libstdc++ 
+    - usermode
+    - strace
+    - sharutils
+    - lshw
+    - zsh
+    - nss-pam-ldapd
+    - bash-completion
+    - libxslt
+    - postfix
+    - telnet
+    - xinetd
+    - rsync
+    - net-tools
+    - mlocate
+    - wget
+    - python-setuptools
+    - htop
+    - jemalloc
+    - nfs-utils
+    - dstat
+    - java-1.8.0-openjdk
+    - jna
+    - cassandra-3.11.4-1.noarch
+    - cassandra-tools-3.11.4-1.noarch
+    - python36
+    - python36-pip
+    - python36-setuptools    
+  notify:
+    - remove system keyspace template for a new node
+    - remove system_distributed keyspace template for a new node
+    - remove system_traces keyspace template for a new node
+    - remove system_auth keyspace template for a new node
+    
+- name: upgrade pip3
+  command: pip3 install --upgrade pip
+
+- name: pip3 install cassandra-driver
+  command: pip3 install cassandra-driver

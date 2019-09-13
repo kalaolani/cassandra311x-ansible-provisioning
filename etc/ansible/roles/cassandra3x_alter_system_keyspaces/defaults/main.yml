@@ -1,0 +1,4 @@
+---
+cassandra3x_system_auth_mod: true
+cassandra3x_system_distributed_mod: true
+cassandra3x_system_traces_mod: true

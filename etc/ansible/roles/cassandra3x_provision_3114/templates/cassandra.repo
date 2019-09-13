@@ -1,0 +1,6 @@
+[cassandra]
+name=CQG Apache Cassandra repo
+baseurl=https://www.apache.org/dist/cassandra/redhat/311x/
+enabled=1
+gpgcheck=0
+repo_gpgcheck=0

@@ -1,0 +1,40 @@
+---
+cassandra3x_cluster_name: cluster311
+cassandra3x_cluster_seeds: cass1.deltakappa.com,cass3.deltakappa.com
+cassandra3x_var_path: /var/lib/cassandra
+cassandra3x_data_path: "{{ cassandra3x_var_path }}/data"
+cassandra3x_conf_path: /etc/cassandra/conf
+cassandra3x_yaml: "{{ cassandra3x_conf_path }}/cassandra.yaml"
+cassandra3x_cassandra_conf_file_mode: "u=rx,g=rx,o=rwx"
+## for the cassandra3x_configure_cql_security role
+cassandra3x_rackdc_properties: "{{ cassandra3x_conf_path }}/cassandra-rackdc.properties"
+cassandra3x_env: "{{ cassandra3x_conf_path }}/cassandra-env.sh"
+cassandra3x_jvm_options: "{{ cassandra3x_conf_path }}/jvm.options"
+# cassandra3x_system_ks_configuration: "'class': 'NetworkTopologyStrategy', 'dc1': '3'"
+## for the cassandra3x_alter_system_keyspaces role
+# cassandra3x_system_ks_configuration: "'class': 'NetworkTopologyStrategy', 'dc1': '3', 'dc2': '3'"
+cassandra3x_system_ks_configuration: "'class': 'NetworkTopologyStrategy', 'dc1': '3', 'dc2': '3', 'dc3': '3'"
+
+cassandra3x_default_superuser: cassandra
+cassandra3x_default_superuser_password: cassandra
+cassandra3x_remote_jmx_user: ansible
+cassandra3x_remote_jmx_pass: ansible
+cassandra3x_ansible_superuser: ansible
+cassandra3x_ansible_superuser_password: ansible
+
+## cluster values - new
+# cassandra3x_reboot_safe: true
+# cassandra3x_cassandra_auto_bootstrap: false
+# cassandra3x_cassandra_enable_safe: true
+# cassandra3x_cassandra_restart_safe: true
+## cluster values - operating (existing)
+cassandra3x_reboot_safe: false
+cassandra3x_cassandra_auto_bootstrap: false
+cassandra3x_cassandra_enable_safe: false
+# cassandra3x_cassandra_restart_safe: false
+# cassandra3x_system_auth_mod: false
+# cassandra3x_system_distributed_mod: false
+cassandra3x_system_traces_mod: false
+cassandra3x_configure_default_cql_users: false
+
+cassandra3x_log_path: /var/log/cassandra
